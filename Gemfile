@@ -58,9 +58,9 @@ end
 
 group :test do
   gem 'database_cleaner-active_record'
-  # gem "factory_bot_rails", "~> 4.8.2"
-  # gem "shoulda-matchers"
-  # gem "simplecov"
+  gem "factory_bot_rails"
+  gem 'shoulda-matchers'
+  gem 'simplecov', require: false
 end
 
 group :development do

@@ -6,6 +6,9 @@ require_relative '../config/environment'
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 require "support/database_cleaner"
+require "support/factory_bot"
+require "support/shoulda_matchers"
+require "support/simple_cov"
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
