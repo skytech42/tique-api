@@ -2,4 +2,9 @@ development:
   domain: <%= ENV['AUTH0_DOMAIN'] %>
   client_id: <%=ENV['AUTH0_CLIENT_ID'] %>
   client_secret: <%= ENV['AUTH0_CLIENT_SECRET'] %>
-  AUTH0_AUDIENCE: <%=ENV['AUTH0_AUDIENCE'] %>
+  audience: <%=ENV['AUTH0_AUDIENCE'] %>
+test:
+  domain: dev-ag0mjly5cialjcjk.us.auth0.com
+  client_id: 1234
+  client_secret: 1234
+  audience: https://dev-ag0mjly5cialjcjk.us.auth0.com/api/v2/

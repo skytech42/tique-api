@@ -5,8 +5,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  resources :personal_data, only: %i[index]
-  get '/auth/auth0/callback' => 'auth0#callback'
-  get '/auth/failure' => 'auth0#failure'
-  get '/auth/logout' => 'auth0#logout'
+  resources :personal_data, only: %i[index create]
 end

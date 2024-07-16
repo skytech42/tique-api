@@ -56,13 +56,13 @@ group :development, :test do
   gem 'byebug'
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails'
+  gem 'factory_bot_rails'
   gem 'faker', '~> 2.1'
   gem 'rspec-rails', '~> 6.1.0'
 end
 
 group :test do
   gem 'database_cleaner-active_record'
-  gem 'factory_bot_rails'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
 end
