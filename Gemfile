@@ -43,7 +43,6 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 gem 'jwt'
-gem 'rubocop', require: false
 # Use Sass to process CSS
 # gem "sassc-rails"
 
@@ -60,12 +59,15 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker', '~> 2.1'
   gem 'rspec-rails', '~> 6.1.0'
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec'
 end
 
 group :test do
   gem 'database_cleaner-active_record'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
+  gem 'simplecov-json', require: false
 end
 
 group :development do

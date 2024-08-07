@@ -11,6 +11,7 @@ require 'support/shoulda_matchers'
 require 'support/simple_cov'
 require 'support/auth_helpers'
 require 'support/api_helpers'
+require 'support/simplecov'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 

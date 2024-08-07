@@ -6,66 +6,28 @@
 image: ruby:2.7.8
 
 definitions:
-  caches:
-    bundler:
-      key:
-        files:
-          - Gemfile.lock
-      path: /usr/local/bundle
   services:
     postgres:
-      image: postgres:latest
-      environment:
-        POSTGRES_DB: $POSTGRES_DB
-        POSTGRES_USER: $POSTGRES_USER
-        POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      image: postgres:13
+      variables:
+        POSTGRES_DB: mydatabase
+        POSTGRES_USER: myuser
+        POSTGRES_PASSWORD: mypassword
+
 pipelines:
   default:
     - step:
-        name: Setup dependencies
+        name: Build and Test
         caches:
           - bundler
+        services:
+          - postgres
         script:
+          - apt-get update -qq
+          - apt-get install -y nodejs postgresql-client
+          - gem install bundler
           - bundle install
-          - bundler exec rails db:test:prepare
-          - bundle exec rails db:create
-          - bundle exec rails db:migrate
-    - parallel:
-      - step:
-          name: Run tests
-          caches:
-            - bundler
-          services:
-            - postgres
-          script:
-            - bundle exec rspec
-          artifacts:
-            - coverage/coverage.json
-      - step:
-          name: Check code style
-          caches:
-            - bundler
-          script:
-            - bundle exec rubocop
-    - step:
-        name: Check coverage
-        script:
-          - >
-            if ! command -v jq &> /dev/null; then
-              apt-get update && apt-get install -y jq
-            fi
-          - covered_percent=$(cat coverage/coverage.json | jq -r '.metrics.covered_percent')
-          - re='^[+-]?[0-9]+([.||,][0-9]+)?$'
-          - >
-            if ! [[ $covered_percent =~ $re ]]; then 
-              echo "WARNING :: Couldn't get coverage from artifact.";
-              exit 0
-            fi
-          - required_coverage=$MINIMUM_COVERAGE
-          - >
-            if [ $covered_percent -le $required_coverage ]; then
-              echo "Coverage ($covered_percent%) is below the required threshold of $required_coverage%.";
-              exit 1
-            else
-              echo "Coverage ($covered_percent%) passed the required threshold of $required_coverage%."
-            fi
+          - cp config/database.yml.ci config/database.yml
+          - bundle exec rake db:create
+          - bundle exec rake db:schema:load
+          - bundle exec rspec

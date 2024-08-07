@@ -25,6 +25,7 @@ module Requests
         before do
           allow(Net::HTTP).to receive(:get_response).and_return(jwks_response)
           allow(jwks_response).to receive(:body).and_return(jwks_raw)
+          allow(AuthOClient).to receive(:decode_token).and_return({})
         end
       end
     end
