@@ -27,6 +27,8 @@ pipelines:
           - bundler
         script:
           - bundle install
+          - bundle exec rails db:create
+          - bundle exec rails db:migrate
     - parallel:
       - step:
           name: Run tests
