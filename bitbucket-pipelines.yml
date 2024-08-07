@@ -27,6 +27,7 @@ pipelines:
           - bundler
         script:
           - bundle install
+          - bundler exec rails db:test:prepare
           - bundle exec rails db:create
           - bundle exec rails db:migrate
     - parallel:
